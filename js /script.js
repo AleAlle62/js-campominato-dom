@@ -5,9 +5,7 @@ let cella = document.querySelector('.cell')
 // per il bonus, creare che ad ogni bottone corrispinde un ciclo diverso che fa scorrere i diversi for a seconda di cio che si clicca 
 
 
-//bottone play 
-
-
+//FACILE
 function bottonePlayUno(){
 
     //far scomparire le altre due opzioni
@@ -37,6 +35,7 @@ function bottonePlayUno(){
     }
 }
 
+//MEDIO
 function bottonePlayDue(){
 
     //far scomparire le altre due opzioni
@@ -66,6 +65,7 @@ function bottonePlayDue(){
         });
     }
 }
+
 
 function bottonePlayTre(){
 
