@@ -66,6 +66,7 @@ function bottonePlayDue(){
     }
 }
 
+//difficile
 
 function bottonePlayTre(){
 
@@ -114,7 +115,10 @@ PASSAGGI IN ITALIANO:
 4. dichiarare il punteggio (numero di volte che utente ha cliccato su una NON bomba)
 */
 
-//REMINDER: fai il bonus dei tre livelli seguendo le indicazioni di domenico
+
+
+
+//VA MESSO TUTTO DENTRO IL CLICK
 
 
 //creazione numeri random da 1 a 16

@@ -54,8 +54,8 @@ footer {
     justify-content: center;
     align-items: center;
 	border: 2px solid fuchsia;
-	height: calc(100%/var(--square));
-    width: calc(100%/var(--square));
+	height: calc(100%/(10));
+    width: calc(100%/(10));
 }
 
 .cell.active {
