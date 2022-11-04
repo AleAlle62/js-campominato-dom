@@ -1,106 +1,10 @@
-// creazione cella classe
-let eleGrid = document.querySelector('.grid');
-let elePlay = document.querySelector('.btn-play')
-let cella = document.querySelector('.cell')
-// per il bonus, creare che ad ogni bottone corrispinde un ciclo diverso che fa scorrere i diversi for a seconda di cio che si clicca 
-
-
-//FACILE
-function bottonePlayUno(){
-
-    //far scomparire le altre due opzioni
-    eleGrid.innerHTML = ''
-    eleGrid.classList.remove('hidden')
-    eleGrid.classList.add('hidden') 
-
-      // ciclo per tutti i quadrati
-    for (let i = 1; i <= 100; i++) {
-            
-        // creazione elemento HTML per le celle 
-        const eleCell = document.createElement('div');
-        
-        // aggiunta all'elemento nuovo
-        eleCell.classList.add('cell');
-            
-        // mettere un contenuto all'interno di un elemento
-        eleGrid.append(eleCell);
-            
-        // stampa dei numeri 
-        eleCell.innerHTML += `<div class=".grid">${[i]}</div>`
-        
-        // funzione per cui se cliccli si colora collegato a CSS
-        eleCell.addEventListener('click', function () {
-            this.classList.toggle('active')
-        });
-    }
-}
-
-//MEDIO
-function bottonePlayDue(){
-
-    //far scomparire le altre due opzioni
-    eleGrid.innerHTML = ''
-    eleGrid.classList.remove('hidden')
-    eleGrid.classList.add('hidden') 
-
-
-      // ciclo per tutti i quadrati
-    for (let i = 1; i <= 81; i++) {
-            
-        // creazione elemento HTML per le celle 
-        const eleCell = document.createElement('div');
-        
-        // aggiunta all'elemento nuovo
-        eleCell.classList.add('cell');
-            
-        // mettere un contenuto all'interno di un elemento
-        eleGrid.append(eleCell);
-            
-        // stampa dei numeri 
-        eleCell.innerHTML += `<div class=".grid">${[i]}</div>`
-        
-        // funzione per cui se cliccli si colora collegato a CSS
-        eleCell.addEventListener('click', function () {
-            this.classList.toggle('active')
-        });
-    }
-}
-
-//difficile
-
-function bottonePlayTre(){
-
-    //far scomparire le altre due opzioni
-    eleGrid.innerHTML = ''
-    eleGrid.classList.remove('hidden')
-    eleGrid.classList.add('hidden') 
-
-
-      // ciclo per tutti i quadrati
-    for (let i = 1; i <= 49; i++) {
-            
-        // creazione elemento HTML per le celle 
-        const eleCell = document.createElement('div');
-        
-        // aggiunta all'elemento nuovo
-        eleCell.classList.add('cell');
-            
-        // mettere un contenuto all'interno di un elemento
-        eleGrid.append(eleCell);
-            
-        // stampa dei numeri 
-        eleCell.innerHTML += `<div class=".grid">${[i]}</div>`
-        
-        // funzione per cui se cliccli si colora collegato a CSS
-        eleCell.addEventListener('click', function () {
-            this.classList.toggle('active')
-        });
-    }
-}
-
-
-
 /*
+PARTE 1
+
+L'utente clicca su un bottone che genererà una griglia di gioco quadrata.
+Ogni cella ha un numero progressivo, da 1 a 100.
+Ci saranno quindi 10 caselle per ognuna delle 10 righe.
+Quando l'utente clicca su ogni cella, la cella cliccata si colora di azzurro ed emetto un messaggio in console con il numero della cella cliccata.
 
 //PARTE 2
 Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe. Attenzione: nella stessa cella può essere posizionata al massimo una bomba, perciò nell’array delle bombe non potranno esserci due numeri uguali.
@@ -115,33 +19,100 @@ PASSAGGI IN ITALIANO:
 4. dichiarare il punteggio (numero di volte che utente ha cliccato su una NON bomba)
 */
 
+// dichiarazione variabili 
+let eleSelectLevel = document.querySelector('#select-level')
+let eleBtnPlay = document.querySelector('#btn-play')
+let eleBtnHelp = document.querySelector('#btn-help')
+let eleStartScreen = document.querySelector('.start-screen')
+let eleGrid = document.querySelector('.grid')
+let arrMines
+let score
+let maxScore
 
 
+// creazione eventi bottone PLAY
 
-//VA MESSO TUTTO DENTRO IL CLICK
+eleBtnPlay.addEventListener('click', function () {
+
+    // dichiarazione dello score ad inizio di ogni nuova partita 
+	score = 0
+    //numero celle
+	let nCells = parseInt(eleSelectLevel.value)
+    // num delle bombe
+	let nMines = 16
+    // punteggio massimo 
+	maxScore = nCells - nMines
+    // creazione dell'array di bombe 
+	arrMines = generateMines(nMines, 1, nCells)
+    // stampa dell'array in console, per vedere i numeri
+	console.log(arrMines.sort((a, b) => a - b))
+
+	// se viene cambiata la modalita si rinnova tutta la griglia
+	eleGrid.innerHTML = ''
+	eleGrid.classList.remove('hidden')
+	eleStartScreen.classList.add('hidden')
+	const sideSquare = Math.sqrt(nCells)
+	eleGrid.style.setProperty('--sideSquare', sideSquare)
+
+    // creazione ciclo per numero di celle a seconda della difficolta 
+	for (let i = 1; i <= nCells; i++) {
+		let eleCell = document.createElement('div')
+		eleCell.classList.add('cell')
+		eleCell.innerHTML = i
+		eleGrid.append(eleCell)
+		eleCell.addEventListener('click', toggleCell)
+	}
+});
 
 
-//creazione numeri random da 1 a 16
-let arrayRandom = [];
-for (var i = 0; i < 16 ; i++){
-
-    let numberRandom = Math.floor(Math.random()*100)+1;
-    let result = true;
-
-    for (var j = 0; j < i; j++){
-        if (arrayRandom [j] == numberRandom)result =false;
-    }
-    if (result){
-        arrayRandom[i] = numberRandom;
-    } else {
-        i--;
-    }
+// incrementazione punteggio bombe 
+function toggleCell() {
+	const cellNumber = parseInt(this.innerHTML)
+	if (arrMines.includes(cellNumber)) {
+		this.classList.add('mine')
+		disableAllCells(true)
+		alert('Il tuo punteggio e: ' + score)
+	} else {
+		this.removeEventListener('click', toggleCell) 
+		score++;
+		this.classList.add('no-mine')
+		if (score == maxScore) {
+			disableAllCells(false)
+			alert('Complimenti hai vinto! Il tuo punteggio e: ' + score)
+		}
+	}
 }
-console.log(arrayRandom) //OK FUNZIONA
 
-
-
-//clicco su uno dei 16 perso, senno si continua
-if (cella === arrayRandom[i]){
-    console.log('hai perso')
+// generazione delle mine 
+function generateMines(nMines, min, max) {
+	const arrRandoms = [];
+	for (let i = 0; i < nMines; i++) {
+		do {
+			randomNumber = getRandomInteger(min, max)
+		} while (arrRandoms.includes(randomNumber))
+		arrRandoms.push(randomNumber)
+	}
+	return arrRandoms
 }
+
+// random 
+function getRandomInteger(min, max) {
+	return Math.floor(Math.random() * (max - min + 1) ) + min
+}
+
+// disabilita mine visione 
+function disableAllCells(showMines) {
+	const listCells = eleGrid.querySelectorAll('.cell')
+	for (let i = 0; i < listCells.length; i++) {
+		const cellNumber = parseInt(listCells[i].innerHTML)
+		if (showMines && arrMines.includes(cellNumber)) {
+			listCells[i].classList.add('mine')
+		}
+		listCells[i].removeEventListener('click', toggleCell)
+	}
+}
+
+
+
+
+

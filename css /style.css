@@ -4,74 +4,62 @@
 	box-sizing: border-box;
 }
 
-
+body {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
 
 header {
-    height: 13vh;
-    display: flex;
-    justify-content: space-between;
+	flex: 0 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: .5rem 2rem;
 }
 
-.left {
-    display: flex;
+img {
+    height: 30px;
 }
 
-.left h1 {
-    margin-top: 20px;
+.container {
+	flex: 1 0 0;
+	display: flex;
+	height: 100%;
+	background-color: lightgreen;
 }
 
-
-header img {
-    height: 80px;
-}
-
-.right {
-    margin-top: 30px;
-    margin-right: 10px;
-}
-
-
-section {
-    padding: 2em;
-    background-color: aqua;
-    height: 80vh;
-}
-
-footer {
-    display: flex;
+.start-screen {
+	margin: auto;
 }
 
 .grid {
+	--sideSquare: 10;
 	display: flex;
 	flex-wrap: wrap;
 	margin: auto;
 	width: 500px;
 	height: 500px;
+	border: 2px solid black;
 }
 
 .cell {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-	border: 2px solid fuchsia;
-	height: calc(100%/(10));
-    width: calc(100%/(10));
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid black;
+	height: calc(100% / var(--sideSquare));
+	width: calc(100% / var(--sideSquare));
 }
 
-.cell.active {
+.cell.mine {
 	background-color: salmon;
 }
 
-button {
-    background-color: salmon;
-    border-radius: 20px;
-    height: 30px;
-    width: 100px;
-    margin: 10px;
+.cell.no-mine {
+	background-color: greenyellow;
 }
 
-.btn-play:hover {
-    transition: 1s;
-    scale: 1.1;
+.hidden {
+	display: none;
 }
-

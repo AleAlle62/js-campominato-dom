@@ -1,47 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- js -->
-    <script src="js /script.js" defer></script>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Campo minato DOM</title>
 
     <!-- stile -->
-    <link rel="stylesheet" href="css /style.css">
+	<link rel="stylesheet" href="css /style.css">
 
-    <title>Campo minato</title>
-
+    <!-- js -->
+	<script src="js /script.js" defer></script>
 </head>
 <body>
+    <!-- parte sopra  -->
+	<header>
+        <!-- immagine e titolo -->
+		<h1><img src="img /WhatsApp Image 2022-11-02 at 14.50.52.jpeg" alt=""> Campo minato</h1>
+
+		<div class="controls">
+            <!-- selezione livelli  -->
+			<select name="level" id="select-level">
+                <!-- Facile -->
+				<option value="100">Facile</option>
+                <!-- medio  -->
+				<option value="81">Medio</option>
+                <!-- difficile  -->
+				<option value="49">Difficile</option>
+			</select>
+            <!-- bottone play  -->
+			<button id="btn-play">Play!</button>
+		</div>
+
+	</header>
     
-    <!-- titolo logo e difficolta -->
-    <header>
-        <div class="left">
-            <!-- logo -->
-            <img src="img /WhatsApp Image 2022-11-02 at 14.50.52.jpeg" >
-            <!-- titolo -->
-            <h1>Campo minato</h1>
-        </div>
-        <!-- parte del bottone destro -->
-        <div class="right">
-                <input type="button" value="FACILE" onclick="bottonePlayUno()">
-                <input type="button" value="MEDIO" onclick="bottonePlayDue()">
-                <input type="button" value="DIFFICILE" onclick="bottonePlayTre()">
-        </div>
-    </header>
+    <!-- fine parte sopra  -->
+    <!-- inizio parte centrale  -->
 
-    <!-- parte griglia centrale  -->
-    <section>
-        <div class="grid"></div>
-    </section>
-
-    <!-- footer  -->
-    <footer>
-        <p>made by Alessio Allegrini</p> 
-    </footer>
-
-
+	<div class="container">
+		<div class="start-screen">
+			<h2>Benvenuto in campo minato</h2>
+		</div>
+		<div class="grid hidden"></div>
+	</div>
+    
 </body>
 </html>
